@@ -15,6 +15,7 @@ const ReviewBook = () => {
 
   // Fetch reviews on load
   useEffect(() => {
+    if (!bookId) return;
     axios.get(`http://localhost:3004/reviews/${bookId}`)
       .then(res => setReviews(res.data))
       .catch(() => toast.error("Failed to load reviews"));
@@ -34,7 +35,7 @@ const ReviewBook = () => {
     };
 
     axios.post('http://localhost:3004/reviews', newReview)
-      .then(res => {
+      .then(() => {
         toast.success("Review submitted!");
         setReviews(prev => [...prev, newReview]);
         setRating('');
@@ -82,11 +83,19 @@ const ReviewBook = () => {
       {reviews.length === 0 ? (
         <Typography>No reviews yet.</Typography>
       ) : (
-        reviews.map((review, i) => (
-          <Paper key={i} sx={{ p: 2, mb: 2 }}>
-            <Typography variant="subtitle1">{review.reviewer}</Typography>
-            <Rating value={review.rating} readOnly />
-            <Typography variant="body2">{review.comment}</Typography>
+        reviews.map((review, index) => (
+          <Paper key={review._id || index} sx={{ p: 2, mb: 2 }}>
+            <Typography variant="subtitle1" fontWeight="bold">
+              {review.reviewer}
+            </Typography>
+            <Rating
+              value={Number(review.rating)}
+              readOnly
+              sx={{ color: '#fbc02d' }} // yellow color
+            />
+            <Typography variant="body2" mt={1}>
+              {review.comment}
+            </Typography>
           </Paper>
         ))
       )}

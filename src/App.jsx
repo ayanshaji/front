@@ -17,6 +17,7 @@ import Chatbot from "./components/Chatbot";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BookReviews from './components/BookReviews';
+import { Reviews } from '@mui/icons-material';
 
 
 function App() {
@@ -74,7 +75,7 @@ function App() {
             <Route path="/edit/:id" element={<EditBook books={books} setBooks={setBooks} />} />
             <Route path="/details/:id" element={<BookDetails books={books} />} />
             <Route path="/reviews/:id" element={<BookReviews books={books} setBooks={setBooks} />} />
-
+            
           </>
         )}
 
@@ -83,6 +84,8 @@ function App() {
             <Route path="/view" element={<ViewBooks books={books} />} />
             <Route path="/details/:id" element={<BookDetails books={books} />} />
             <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/reviews/:id" element={<BookReviews books={books} setBooks={setBooks} />} />
+
           </>
         )}
       </Routes>

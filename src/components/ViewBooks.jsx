@@ -139,7 +139,7 @@ const ViewBooks = ({ books, setBooks }) => {
             {filteredBooks.map(book => {
               const fine = book.borrowed ? calculateFine(book.borrowDate) : 0;
               return (
-                <TableRow key={book._id}>
+                <TableRow key={book.id  || `${book.title}-${i}`}>
                   <TableCell>{book.title}</TableCell>
                   <TableCell>{book.author}</TableCell>
                   <TableCell>{book.genre}</TableCell>
@@ -161,7 +161,7 @@ const ViewBooks = ({ books, setBooks }) => {
                         variant="contained"
                         color="primary"
                         size="small"
-                        onClick={() => navigate(`/detail/${book._id}`)}
+                        onClick={() => navigate(`/detail/${book.id}`)}
                         sx={{ mb: 1 }}
                       >
                         Reserve
@@ -172,7 +172,7 @@ const ViewBooks = ({ books, setBooks }) => {
                       color="secondary"
                       size="small"
                       component={Link}
-                      to={`/reviews/${book._id}`}
+                      to={`/reviews/${book.id}`}
                     >
                       Reviews
                     </Button>
